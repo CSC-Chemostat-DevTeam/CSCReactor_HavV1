@@ -1,0 +1,13 @@
+name = "CSCReactor_HavV1"
+uuid = "38d2af7e-3c9a-4d91-b45e-6a96a40397e5"
+authors = ["josePereiro <jose.pereiro.personal@gmail.com> and contributors"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.10"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
