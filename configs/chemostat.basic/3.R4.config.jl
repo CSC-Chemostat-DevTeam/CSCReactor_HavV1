@@ -1,15 +1,15 @@
-CONFIG["CH4"] = Dict(
+CONFIG["R4"] = Dict(
     # EXTRAS
-    "ch.name" => "CH4",
+    "R.name" => "R4",
     "run.dry" => false,
     
     # PIN LAYOUT
-    # "pump.air.in.pin" => CONFIG["PIN.LAYOUT"]["PUMP_2_PIN"], # TODO
+    "pump.air.in.pin" => CONFIG["PIN.LAYOUT"]["PUMP_4_PIN"],
     # "pump.medium.out.pin" => CONFIG["PIN.LAYOUT"]["PUMP_4_PIN"], # TODO
     # "pump.medium.in.pin" => CONFIG["PIN.LAYOUT"]["PUMP_5_PIN"], # TODO
-    "laser.pin" => CONFIG["PIN.LAYOUT"]["CH5_LASER_PIN"],
-    "led.control.pin" => CONFIG["PIN.LAYOUT"]["CH5_CONTROL_LED_PIN"],
-    "led.sample.pin" => CONFIG["PIN.LAYOUT"]["CH5_SAMPLE_LED_PIN"],
+    "laser.pin" => CONFIG["PIN.LAYOUT"]["CH4_LASER_PIN"],
+    "led.control.pin" => CONFIG["PIN.LAYOUT"]["CH4_CONTROL_LED_PIN"],
+    "led.sample.pin" => CONFIG["PIN.LAYOUT"]["CH4_SAMPLE_LED_PIN"],
     
     # CONFIG
     "vial.working_volume" => 25.0, # mL [MEASSURED]

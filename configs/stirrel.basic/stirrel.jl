@@ -1,4 +1,4 @@
-CONFIG["INOS.CONFIG"] = Dict(
+CONFIG["STIRREL"] = Dict(
 
     # PIN LAYOUT
     "stirrel.pin" => CONFIG["PIN.LAYOUT"]["STIRREL_PIN"],
