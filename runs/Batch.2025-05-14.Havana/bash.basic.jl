@@ -9,20 +9,20 @@ end
 include("0.base.jl")
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
-# setup
+# MARK: CONNECT
 let
     ch_try_connect(CONFIG)
     nothing
 end
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
-# MARK: Utils
+# MARK: UTILS
 function gID(prefix...)
     return string(join(prefix, "-"), "-", rand())
 end
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
-# MARK: setup
+# MARK: SETUP
 Rs = ["R1", "R2", "R3", "R4", "R5"]
 let
     setup_config = []
@@ -62,7 +62,7 @@ while (true)
     # INFO
     println("="^40)
 
-    # MARK: ....DHT11
+    # MARK: ..DHT11
     log_extras = Dict("group" => gID("DHT11"))
     global res = send_csvcmd(SP, 
         "DHT11", "MEASSURE", 
@@ -78,12 +78,12 @@ while (true)
     @show H
 
 
-    # MARK: ....RID
+    # MARK: ..RID
     shuffle!(Rs)
     for RID in Rs
         @show RID
 
-        # MARK: AIR IN
+        # MARK: ....AIR IN
         log_extras = Dict("group" => gID(RID, "AIR.IN"))
         global res = send_csvcmd(SP, "INO", "DIGITAL-S-PULSE", 
             CONFIG[RID]["pump.air.in.pin"], 1, 500, 0;
@@ -95,17 +95,20 @@ while (true)
         # MARK: ....STIRREL
         # $INO:DIGITAL-S-PULSE:PIN1:VAL01:TIME1:VAL11...%
         log_extras = Dict("group" => gID(RID, "stirrel"))
-        global res = send_csvcmd(SP, "INO", "DIGITAL-S-PULSE", 
+        global res = send_csvcmd(SP, 
+            "INO", "DIGITAL-S-PULSE", 
             CONFIG["STIRREL"]["stirrel.pin"], 1, 500, 0;
             log = true, 
             log_extras
         )
         # @assert res_success(res)
 
-        # MARK: ........LASER ON
-        laser_pwm = rand(0:255)
+        # MARK: ....OD
         log_extras = Dict()
         log_extras["group"] = gID(RID, "OD")
+
+        # MARK: ......LASER ON
+        laser_pwm = rand(0:255)
         log_extras["action"] = "laser.on"
         global res = send_csvcmd(SP, 
             "INO", "ANALOG-WRITE", 
@@ -116,7 +119,7 @@ while (true)
         sleep(1)
         # @assert res_success(res)
 
-        # MARK: ........CONTROL LED
+        # MARK: ......CONTROL LED
         log_extras["action"] = "read.control.pin"
         global res = send_csvcmd(SP, 
             "INO", "PULSE-IN", 
@@ -128,7 +131,7 @@ while (true)
         @show control_led
         # @assert res_success(res)
 
-        # MARK: ........SAMPLE LED
+        # MARK: ......SAMPLE LED
         log_extras["action"] = "read.sample.pin"
         global res = send_csvcmd(SP, 
             "INO", "PULSE-IN", 
@@ -140,7 +143,7 @@ while (true)
         @show sample_led
         # @assert res_success(res)
 
-        # MARK: ........LASER OFF
+        # MARK: ......LASER OFF
         laser_pwm = 0
         log_extras["action"] = "laser.off"
         global res = send_csvcmd(SP, 
@@ -155,35 +158,4 @@ while (true)
 end
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
-# DOING: create a bash.basic protocole
-let 
-    global res;
-
-    global res = send_csvcmd(SP, 
-        "INO", "PIN-MODE", 
-        CONFIG["R2"]["led.control.pin"], INPUT_PULLUP; 
-        tout = 1, 
-        log = true
-    )
-    
-    # # INPUT_PULLUP
-    # global res = send_csvcmd(
-    #     SP, "INO", "PIN-MODE",
-    #     CONFIG["R2"]["led.control.pin"], INPUT_PULLUP; 
-    #     tout = 1, 
-    # )
-
-    # read sensors 1
-    global res = send_csvcmd(SP, 
-        "INO", "PULSE-IN", CONFIG["R2"]["led.control.pin"], 100;
-        tout = 1, 
-        log = true
-    )
-
-
-    foreach_log() do res
-        ttag = res["time_tag"]
-        val = vad_data(res, "read", NaN; T = Float64)
-        @show val
-    end
-end
+nothing
