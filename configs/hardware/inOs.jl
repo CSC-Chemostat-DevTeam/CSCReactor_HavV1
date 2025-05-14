@@ -5,5 +5,6 @@ CONFIG["INOS"] = Dict(
         "/dev/cu.usbmodem14201",
         "/dev/cu.usbmodem141101",
         "/dev/tty.usbmodem14101",
+        "/dev/ttyACM0"
     ]
 )
