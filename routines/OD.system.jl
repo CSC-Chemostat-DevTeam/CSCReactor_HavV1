@@ -12,7 +12,7 @@ ROUTINES["OD.meassure.random.intensity"] = function()
     LOG_EXTRAS["action"] = "laser.on"
     global res = send_csvcmd(SP,
         "INO", "ANALOG-WRITE", 
-        CONFIG[RID]["laser.pin"], laser_pwm;
+        CONFIG[RID]["laser.pin.layout"]["pin"], laser_pwm;
         log = get(CONFIG, "log.enable", true),
         log_extras = LOG_EXTRAS
     )
@@ -25,10 +25,10 @@ ROUTINES["OD.meassure.random.intensity"] = function()
     sleep(relax_time)
 
     # MARK: ......CONTROL LED
-    LOG_EXTRAS["action"] = "read.control.pin"
+    LOG_EXTRAS["action"] = "read.control.led"
     global res = send_csvcmd(SP,
         "INO", "PULSE-IN", 
-        CONFIG[RID]["led.control.pin"], 
+        CONFIG[RID]["led.control.pin.layout"]["pin"], 
         CONFIG[RID]["led.reading.time"];
         log = get(CONFIG, "log.enable", true),
         log_extras = LOG_EXTRAS
@@ -38,10 +38,10 @@ ROUTINES["OD.meassure.random.intensity"] = function()
     # @assert res_success(res)
 
     # MARK: ......SAMPLE LED
-    LOG_EXTRAS["action"] = "read.sample.pin"
+    LOG_EXTRAS["action"] = "read.sample.led"
     global res = send_csvcmd(SP,
         "INO", "PULSE-IN", 
-        CONFIG[RID]["led.sample.pin"], 
+        CONFIG[RID]["led.sample.pin.layout"]["pin"], 
         CONFIG[RID]["led.reading.time"];
         log = get(CONFIG, "log.enable", true),
         log_extras = LOG_EXTRAS
@@ -54,7 +54,7 @@ ROUTINES["OD.meassure.random.intensity"] = function()
     LOG_EXTRAS["action"] = "laser.off"
     global res = send_csvcmd(SP,
         "INO", "ANALOG-WRITE",
-        CONFIG[RID]["laser.pin"], 0;
+        CONFIG[RID]["laser.pin.layout"]["pin"], 0;
         log = get(CONFIG, "log.enable", true),
         log_extras = LOG_EXTRAS
     )
