@@ -1,4 +1,4 @@
-SP = nothing
+const STATE = Dict{String, Any}()
 
 const CONFIG = Dict{String, Any}()
 

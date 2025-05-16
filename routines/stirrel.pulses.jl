@@ -1,4 +1,6 @@
 ROUTINES["stirrel.run.pulse.square"] = function()
+    
+    SP = STATE["SP"]
 
     LOG_EXTRAS["group"] = gID("stirrel")
     LOG_EXTRAS["action"] = "stirrel.pulse.square"

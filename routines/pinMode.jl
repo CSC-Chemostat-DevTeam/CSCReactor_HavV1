@@ -1,5 +1,7 @@
 ROUTINES["run.pinMode.from.pin.layout"] = function()
 
+    SP = STATE["SP"]
+    
     pinMode_config = []
     foreach_child(Dict, CONFIG) do hist, obj
         get(obj, "type", "") == "pin.layout" || return

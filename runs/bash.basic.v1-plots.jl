@@ -6,7 +6,7 @@ end
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
 # include
 include("0.base.jl")
-include("bash.basic.v1.0.base.jl")
+include("bash.basic.v1-0.base.jl")
 
 ## -.- .- - -.. .   . .--- - -- .- .- . - .- .- -.
 # MARK: Utils

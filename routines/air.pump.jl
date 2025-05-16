@@ -1,5 +1,7 @@
 ROUTINES["air.pump.pulse.square"] = function()
 
+    SP = STATE["SP"]
+    
     LOG_EXTRAS["group"] = gID("pump.air")
     LOG_EXTRAS["action"] = "pump.air.in"
     rid = CONFIG["curr.RID"]

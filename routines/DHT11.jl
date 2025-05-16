@@ -1,5 +1,7 @@
 ROUTINES["DHT11.meassure.T.and.H"] = function()
 
+    SP = STATE["SP"]
+    
     LOG_EXTRAS["group"] = gID("DHT11")
     LOG_EXTRAS["action"] = "DHT11.meassure"
     global res = send_csvcmd(SP, 

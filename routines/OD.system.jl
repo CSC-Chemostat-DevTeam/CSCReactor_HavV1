@@ -1,6 +1,7 @@
 ROUTINES["OD.meassure.random.intensity"] = function()
     
     RID = CONFIG["curr.RID"]
+    SP = STATE["SP"]
 
     LOG_EXTRAS["group"] = gID(RID, "OD")
 
