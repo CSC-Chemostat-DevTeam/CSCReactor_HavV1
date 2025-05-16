@@ -1,5 +1,5 @@
-CONFIG["PIN.LAYOUT"] = Dict(
-
+get!(CONFIG, "PIN.LAYOUT", Dict())
+merge!(CONFIG["PIN.LAYOUT"], Dict(
     "PUMP_1_PIN" => 15,
     "PUMP_2_PIN" => 9,
     "PUMP_3_PIN" => 11,
@@ -31,5 +31,8 @@ CONFIG["PIN.LAYOUT"] = Dict(
     "CH5_SAMPLE_LED_PIN" => 31,
 
     "DHT11_PIN" => 52
-)
+))
+
+## ---.-.- ...- -- .--- . .- .-. . ..- .--.-
+nothing
 

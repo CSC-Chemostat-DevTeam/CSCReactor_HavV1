@@ -1,4 +1,5 @@
-CONFIG["INOS"] = Dict(
+get!(CONFIG, "INOS", Dict())
+merge!(CONFIG["INOS"], Dict(
     "ino.baudrate" => 19200,
     "registered.ports" => [
         "/dev/cu.usbmodem14101",
@@ -7,4 +8,4 @@ CONFIG["INOS"] = Dict(
         "/dev/tty.usbmodem14101",
         "/dev/ttyACM0"
     ]
-)
+))

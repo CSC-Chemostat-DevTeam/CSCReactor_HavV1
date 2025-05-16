@@ -1,4 +1,30 @@
 # --.- - . .-- .-. -. -. -- - -. . .- - - .- .-.--
+# Utils
+function foreach_child(f::Function, T::Type, hist::Array, obj::Any)
+    isa(obj, T) || return
+    # Apply function to current Dict
+    f(hist, obj)
+    # Recursively apply to values
+    for (k, v) in obj
+        foreach_child(f, T, [hist; k], v)
+    end
+end
+
+foreach_child(f::Function, T::Type, obj::AbstractDict) = foreach_child(f, T, [], obj)
+
+# --.- - . .-- .-. -. -. -- - -. . .- - - .- .-.--
+function run_routine(key)
+    println("running: ", key)
+    ROUTINES[key]()
+end
+
+# --.- - . .-- .-. -. -. -- - -. . .- - - .- .-.--
+# log extras
+function gID(prefix...)
+    return string(join(prefix, "-"), "-", rand())
+end
+
+# --.- - . .-- .-. -. -. -- - -. . .- - - .- .-.--
 # Arduino
 
 function find_port(CONFIG)
@@ -10,18 +36,6 @@ function find_port(CONFIG)
     end
     error("Port not found, ports: ", found)
 end
-
-# connect ino
-function ch_try_connect(CONFIG)
-    isnothing(SP) || return nothing
-    portname = find_port(CONFIG)
-    baudrate = get(CONFIG["INOS"], "ino.baudrate", 19200)
-    @show portname
-    @show baudrate
-    global SP = LibSerialPort.open(portname, baudrate)
-    return SP
-end
-
 
 # # --.- - . .-- .-. -. -. -- - -. . .- - - .- .-.--
 # # Ticker 
