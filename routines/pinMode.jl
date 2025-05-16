@@ -14,7 +14,9 @@ ROUTINES["run.pinMode.from.pin.layout"] = function()
     println("id:pin:mode")
     for (hist, config) in pinMode_config
         pin = config["pin"]
+        isnothing(pin) && continue
         mode = config["mode"]
+        isnothing(mode) && continue
         println(hist, ":", pin, ":",  mode)
         LOG_EXTRAS["group"] = gID("setup.pinMode")
         LOG_EXTRAS["action"] = "pinMode.$pin.$mode"
