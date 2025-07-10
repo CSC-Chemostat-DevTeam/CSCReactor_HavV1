@@ -12,6 +12,7 @@ include("OD.test.v1-0.base.jl")
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
 # MARK: CONNECT
+# sudo chmod +777 /dev/ttyACM0
 run_routine("try.connect")
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..

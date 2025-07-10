@@ -1,6 +1,6 @@
 # CONFIG
 empty!(CONFIG)
-include("../configs/reactor.basic.0.main.jl")
+include("../configs/batch.basic.0.main.jl")
 
 CONFIG["RIDs"] = ["R1", "R2", "R3", "R4", "R5"]
 

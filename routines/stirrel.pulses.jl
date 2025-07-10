@@ -4,8 +4,8 @@ ROUTINES["stirrel.run.pulse.square"] = function()
 
     LOG_EXTRAS["group"] = gID("stirrel")
     LOG_EXTRAS["action"] = "stirrel.pulse.square"
-    pin = CONFIG["STIRREL"]["stirrel.pin"]
-    pulse_len = get(CONFIG["STIRREL"], "pulse.square.time", 500)
+    pin = CONFIG["STIRREL"]["pin.layout"]["pin"]
+    pulse_len = get(CONFIG["STIRREL"], "pulse.square.time", 300)
     # $INO:DIGITAL-S-PULSE:PIN1:VAL01:TIME1:VAL11...%
     global res = send_csvcmd(SP,
         "INO", "DIGITAL-S-PULSE", 
