@@ -7,6 +7,7 @@ merge!(CONFIG["INOS"], Dict(
         "/dev/cu.usbmodem141101",
         "/dev/tty.usbmodem14101",
         "/dev/ttyACM0", 
-        "/dev/tty.usdmodem101"
+        "/dev/tty.usdmodem101", 
+        "/dev/cu.usbmodem101"
     ]
 ))

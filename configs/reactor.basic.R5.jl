@@ -22,7 +22,7 @@ merge!(CONFIG["R5"], Dict(
     ),
     
     # CONFIG
-    "led.reading.time" => 200, # ms
+    "led.reading.time" => 800, # ms
     "laser.pwm.max" => 255,
     "laser.pwm.min" => 1,
 

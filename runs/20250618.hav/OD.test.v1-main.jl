@@ -34,7 +34,7 @@ while (true)
     shuffle!(CONFIG["RIDs"])
     for RID in CONFIG["RIDs"]
         @show RID
-        CONFIG["curr.RID"] = RID
+        STATE["curr.RID"] = RID
         
         # MARK: ....OD
         run_routine("OD.meassure.random.intensity")

@@ -1,6 +1,6 @@
 ROUTINES["DHT11.meassure.T.and.H"] = function()
     
-    SP = STATE["SP"]
+    SP = STATE["curr.SP"]
 
     LOG_EXTRAS["group"] = gID("DHT11")
     LOG_EXTRAS["action"] = "DHT11.meassure"

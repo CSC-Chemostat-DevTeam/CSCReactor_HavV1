@@ -1,10 +1,10 @@
 ROUTINES["air.pump.pulse.square"] = function()
 
-    SP = STATE["SP"]
+    rid = STATE["curr.RID"]
+    SP = STATE["curr.SP"]
     
     LOG_EXTRAS["group"] = gID("pump.air")
     LOG_EXTRAS["action"] = "pump.air.in"
-    rid = CONFIG["curr.RID"]
     pin = CONFIG[rid]["pump.air.in.pin.layout"]["pin"]
     pulse_len = get(CONFIG[rid], "pump.air.in.pulse.time", 500)
     global res = send_csvcmd(SP, 

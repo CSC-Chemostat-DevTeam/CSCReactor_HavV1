@@ -3,6 +3,7 @@ begin
     using CSCReactor_HavV1
     using Random
     using Dates
+    using CairoMakie
 end
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
@@ -20,27 +21,52 @@ run_routine("try.connect")
 run_routine("run.pinMode.from.pin.layout")
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
-# MARK: LOOP
-CONFIG["RIDs"] = ["R1", "R2", "R3", "R4", "R5"]
-while (true)
+# MARK: RUN
+let
+    STATE["curr.RID"] = "R3"
+    CONFIG["log.enable"] = false
 
-    # INFO
-    println("="^40)
+    # OUT
+    global out = get(STATE, 
+        "OD.meassure.laser.PWM.range:out", 
+        Dict{String, Any}()
+    )
+    empty!(out)
 
-    # MARK: ..DHT11
-    run_routine("DHT11.meassure.T.and.H")
-
-    # MARK: ..for RID
-    shuffle!(CONFIG["RIDs"])
-    for RID in CONFIG["RIDs"]
-        @show RID
-        CONFIG["curr.RID"] = RID
-        
-        # MARK: ....OD
-        run_routine("OD.meassure.random.intensity")
-
+    global nsamples = 200
+    for it in 1:nsamples
+        run_routine("OD.meassure.random.pwm")
     end
+
+    run(`say "Task finished!!!"`)
+
+    return nothing
 end
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
-nothing
+# MARK: PLOTS
+let
+    # laser_pwm_col, control_led_col, sample_led_col
+    f = Figure()
+    ax = Axis(f[1,1];
+    title = string(
+        "RID: ", STATE["curr.RID"], 
+        ),
+        xlabel = "laser pwm", 
+        ylabel = "led count", 
+    )
+    scatter!(ax, out["laser_pwm_col"], out["control_led_col"];
+        label = "control_led_col", color = :red
+        )
+    scatter!(ax, out["laser_pwm_col"], out["sample_led_col"];
+        label = "sample_led_col", color = :blue
+    )
+    axislegend(ax; position = :lt)
+    f
+end
+
+## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
+## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
+## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
+## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
+## .. - .- --- .- .-. --- .- .-. -.--- .. . ..

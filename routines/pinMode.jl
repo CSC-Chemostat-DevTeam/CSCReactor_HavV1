@@ -1,6 +1,6 @@
 ROUTINES["run.pinMode.from.pin.layout"] = function()
 
-    SP = STATE["SP"]
+    SP = STATE["curr.SP"]
     
     pinMode_config = []
     foreach_child(Dict, CONFIG) do hist, obj

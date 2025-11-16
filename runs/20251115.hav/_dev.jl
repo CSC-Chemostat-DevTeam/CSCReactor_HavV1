@@ -30,10 +30,9 @@ while (true)
     # run_routine("DHT11.meassure.T.and.H")
 
     # MARK: ..for RID
-    shuffle!(CONFIG["RIDs"])
-    for RID in CONFIG["RIDs"]
+    for RID in shuffle(CONFIG["RIDs"])
         @show RID
-        CONFIG["curr.RID"] = RID
+        STATE["curr.RID"] = RID
 
         # MARK: ....AIR IN
         # run_routine("air.pump.pulse.square")
@@ -42,7 +41,7 @@ while (true)
         # run_routine("stirrel.run.pulse.square")
         
         # MARK: ....OD
-        # run_routine("OD.meassure.random.intensity")
+        # run_routine("OD.meassure.random.pwm")
 
     end
 end
