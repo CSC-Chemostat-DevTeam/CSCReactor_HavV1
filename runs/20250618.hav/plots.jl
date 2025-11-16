@@ -11,7 +11,11 @@ include("bash.basic.v1-0.base.jl")
 ## -.- .- - -.. .   . .--- - -- .- .- . - .- .- -.
 # MARK: Utils
 # Function to create xticks
-function create_xticks(x_dates::Vector{DateTime}, period::Period, offset = Minute(0))
+function create_xticks(
+    x_dates::Vector{DateTime}, 
+    period::Period, 
+    offset = Minute(0)
+)
     # x0, x1 = DateTime.(Date.(extrema(x_dates)))
     x0, x1 = extrema(x_dates)
     xtick_dates = (x0 + offset):period:(x1 + offset)
@@ -25,6 +29,7 @@ end
 DAT0 = Dict()
 
 ## -.- .- - -.. .   . .--- - -- .- .- . - .- .- -.
+# MARK: ..Collect H & T
 let
     @time foreach_log(;
         maxfiles = Int(1e5)
@@ -35,8 +40,8 @@ let
         gID = res["log_extras"]["group"]
         contains(gID, "DHT11") || return
         
-        date0 = DateTime("2025-05-10T16:00", "yyyy-mm-ddTHH:MM")
-        date1 = DateTime("2025-05-25T18:01", "yyyy-mm-ddTHH:MM")
+        date0 = DateTime("2025-06-18T00:00", "yyyy-mm-ddTHH:MM")
+        date1 = DateTime("2025-06-20T00:00", "yyyy-mm-ddTHH:MM")
         date = res["time_tag"]
         date > date0 || return
         date < date1 || return
@@ -60,7 +65,7 @@ let
 end
 
 ## -.- .- - -.. .   . .--- - -- .- .- . - .- .- -.
-# MARK: T & H
+# MARK: ..plot T & H
 @time let
     # Plot
 
@@ -71,8 +76,9 @@ end
         xlabel="date",
         xticklabelrotation = pi / 4, 
         xticks = create_xticks(DAT0["T_dates"], 
-            Minute(4 * 60)
+            Minute(2 * 60)
         ),
+        # limits = (nothing, nothing, 0.0, 30.0)
     )
 
     ax2 = Axis(f[1, 1]; 
@@ -81,6 +87,7 @@ end
         xticklabelsvisible=false, 
         xgridvisible=false, ygridvisible=false,
         spinewidth=0, 
+        # limits = (nothing, nothing, 0.0, 100.0)
     )   
     ser1 = scatter!(ax1, 
         Dates.value.(DAT0["T_dates"]), DAT0["T_vals"];
@@ -110,19 +117,25 @@ DAT0 = Dict()
     ) do res
         global _res = res
 
-        haskey(res["log_extras"], "group") || return
-        gID = res["log_extras"]["group"]
-        contains(gID, "OD") || return
-        contains(gID, RID) || return
+        return
+
+        # haskey(res["log_extras"], "group") || return
+        # gID = res["log_extras"]["group"]
+        # contains(gID, "OD") || return
+        # contains(gID, RID) || return
+
         
-        date0 = DateTime("2025-05-10T16:00", "yyyy-mm-ddTHH:MM")
-        date1 = DateTime("2025-05-25T18:01", "yyyy-mm-ddTHH:MM")
+        date0 = DateTime("2025-06-18T00:00", "yyyy-mm-ddTHH:MM")
+        date1 = DateTime("2025-06-20T00:00", "yyyy-mm-ddTHH:MM")
         date = res["time_tag"]
+        @show date
         date > date0 || return
+        @show "Hi"
+        return :break
         date < date1 || return
         
-        
         contains(res["echo"]["csvline"], "INO:PULSE-IN") || return
+        
         
         val = vad_data(res, "read", nothing; T = Float64)
         isnothing(val) && return;
@@ -177,6 +190,8 @@ let
     # ys = (ys  .- minimum(ys)) 
     # ys = ys ./ maximum(ys)
     xs = Dates.value.(x_dates)
+
+    return xs
 
     # Control how many xticks to display
 
