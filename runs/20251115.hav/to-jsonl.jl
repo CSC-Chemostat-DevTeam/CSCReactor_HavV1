@@ -5,7 +5,7 @@ end
 
 ## --- . . . .-. -- - - -.- . -. .- .
 let
-    runsdir = "/Users/pereiro/.julia/dev/CSCReactor_HavV1/runs/hav"
+    runsdir = "/Users/pereiro/.julia/dev/CSCReactor_HavV1/runs/20251115.hav"
     srcdir = joinpath(runsdir, "log")
     dstdir = joinpath(runsdir, "log.jsonl")
     mkpath(dstdir)

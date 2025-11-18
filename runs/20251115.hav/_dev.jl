@@ -6,6 +6,16 @@ begin
 end
 
 ## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
+using Serialization
+using JSON
+
+let
+    fn = "/Users/pereiro/.julia/dev/CSCReactor_HavV1/runs/20251115.hav/log.bk/17-11-2025-02-03.jls"
+    dat = deserialize(fn)
+    println(JSON.json(dat, 2))
+end
+
+## .. - .- --- .- .-. --- .- .-. -.--- .. . ..
 # include
 include("0.base.jl")
 include("bash.basic.v1-0.base.jl")
